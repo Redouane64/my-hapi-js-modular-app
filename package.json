@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rimraf ./build",
     "build": "npm run clean && tsc",
-    "start:dev": "npm run build && concurrently -k \"tsc -w\" \"nodemon ./build/index.js\"",
+    "start:dev": "npm run build && concurrently -k \"tsc -w\" \"nodemon ./build/main.js\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint '{src,test}/**/*.ts' --quiet --fix",
     "test": "lab --sourcemaps --leaks --transform node_modules/lab-transform-typescript -v ./test/*.test.ts",
@@ -19,6 +19,7 @@
     "@commitlint/config-conventional": "^13.1.0",
     "@hapi/code": "^8.0.3",
     "@hapi/lab": "^24.3.2",
+    "@types/hapi-pino": "^8.0.2",
     "@types/hapi__hapi": "^20.0.9",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
@@ -40,7 +41,7 @@
     "typescript": "^4.3.5"
   },
   "lint-staged": {
-    "*.{ts}": [
+    "*.ts": [
       "eslint --fix"
     ],
     "*.js": "eslint --cache --fix"
@@ -48,6 +49,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
     "dotenv": "^10.0.0",
+    "hapi-pino": "^8.3.0",
     "lab-transform-typescript": "^3.0.1"
   }
 }
