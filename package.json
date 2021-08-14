@@ -8,13 +8,18 @@
     "start:dev": "npm run build && concurrently -k \"tsc -w\" \"nodemon ./build/index.js\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint '{src,test}/**/*.ts' --quiet --fix",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "lab --sourcemaps --leaks --transform node_modules/lab-transform-typescript -v ./test/*.test.ts",
     "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@hapi/code": "^8.0.3",
+    "@hapi/lab": "^24.3.2",
+    "@types/hapi__hapi": "^20.0.9",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
@@ -39,5 +44,10 @@
       "eslint --fix"
     ],
     "*.js": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.1.5",
+    "dotenv": "^10.0.0",
+    "lab-transform-typescript": "^3.0.1"
   }
 }
