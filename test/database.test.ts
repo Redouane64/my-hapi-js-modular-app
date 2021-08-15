@@ -47,5 +47,14 @@ describe('database', () => {
     const result = await server.methods.getUsers()
 
     expect(result).to.be.array()
+    expect(result).to.be.not.empty()
+  })
+
+  it('get user return null on non-existing user', async () => {
+    const result = await server.methods.getUser({
+      username: 'foo'
+    })
+
+    expect(result).to.be.null()
   })
 })
