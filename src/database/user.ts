@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table, DataType } from 'sequelize-typescript'
+import { Column, Model, Table, DataType } from 'sequelize-typescript'
+import * as uuid from 'uuid'
 
 export interface UserDto {
     id: string
@@ -12,8 +13,12 @@ export type CreateOrUpdateUser = Omit<UserDto, 'id'>
   tableName: 'users'
 })
 export class Users extends Model<UserDto, CreateOrUpdateUser> implements UserDto {
-    @PrimaryKey
-    @Column(DataType.UUID)
+    @Column({
+      type: DataType.UUID,
+      primaryKey: true,
+      allowNull: false,
+      defaultValue: uuid.v4()
+    })
     id: string
 
     @Column(DataType.STRING)
