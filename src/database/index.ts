@@ -1,7 +1,7 @@
 import { Plugin, Server } from '@hapi/hapi'
 import * as pkg from '../../package.json'
 import { Sequelize } from 'sequelize-typescript'
-import { CreateOrUpdateUser, Users } from './user'
+import { CreateOrUpdateUser, UserDto, Users } from './user'
 import { Op } from 'sequelize'
 
 export type DatabaseOptions = {
@@ -56,11 +56,19 @@ const getUsers = async (): Promise<Users[]> => {
   })
 }
 
-const getUser = async (user: Pick<Users, 'email' | 'username'>): Promise<Users | null> => {
+const getUser = async (user: Partial<Pick<UserDto, 'email' | 'username'>>): Promise<Users | null> => {
+  const conditions = []
+
+  if (user.email !== undefined) {
+    conditions.push({ email: user.email })
+  }
+
+  if (user.username !== undefined) {
+    conditions.push({ username: user.username })
+  }
+
   return await Users.findOne({
-    where: {
-      [Op.or]: [{ username: user.username }, { email: user.email }]
-    },
+    where: { [Op.or]: conditions },
     raw: true
   })
 }
