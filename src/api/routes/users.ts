@@ -1,7 +1,7 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi'
 
 export const register: ServerRoute = {
-  path: '/',
+  path: '/users',
   method: 'POST',
   options: {
     tags: ['register'],
@@ -13,7 +13,7 @@ export const register: ServerRoute = {
 }
 
 export const login: ServerRoute = {
-  path: '/',
+  path: '/users',
   method: 'GET',
   options: {
     tags: ['login'],
