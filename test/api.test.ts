@@ -23,7 +23,7 @@ describe('api', () => {
 
   it('register user', async () => {
     const response = await server.inject({
-      url: '/',
+      url: '/api/users',
       method: 'POST'
     })
 
@@ -32,7 +32,7 @@ describe('api', () => {
 
   it('login user', async () => {
     const response = await server.inject({
-      url: '/',
+      url: '/api/users',
       method: 'GET'
     })
 
