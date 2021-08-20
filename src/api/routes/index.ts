@@ -1,6 +1,3 @@
 import { register, login } from './users'
 
-export const users = [
-  register,
-  login
-]
+export const users = [register, login]

@@ -56,7 +56,9 @@ const getUsers = async (): Promise<Users[]> => {
   })
 }
 
-const getUser = async (user: Partial<Pick<UserDto, 'email' | 'username'>>): Promise<Users | null> => {
+const getUser = async (
+  user: Partial<Pick<UserDto, 'email' | 'username'>>
+): Promise<Users | null> => {
   const conditions = []
 
   if (user.email !== undefined) {

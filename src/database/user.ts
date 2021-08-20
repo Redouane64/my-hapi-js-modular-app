@@ -1,10 +1,20 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript'
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  PrimaryKey,
+  AllowNull,
+  Default,
+  Unique,
+  Validate
+} from 'sequelize-typescript'
 import * as uuid from 'uuid'
 
 export interface UserDto {
-    id: string
-    username: string
-    email: string
+  id: string
+  username: string
+  email: string
 }
 
 export type CreateOrUpdateUser = Omit<UserDto, 'id'>
@@ -13,17 +23,20 @@ export type CreateOrUpdateUser = Omit<UserDto, 'id'>
   tableName: 'users'
 })
 export class Users extends Model<UserDto, CreateOrUpdateUser> implements UserDto {
-    @Column({
-      type: DataType.UUID,
-      primaryKey: true,
-      allowNull: false,
-      defaultValue: uuid.v4()
-    })
-    id: string
+  @PrimaryKey
+  @AllowNull(false)
+  @Default(uuid.v4())
+  @Column(DataType.UUID)
+  id: string
 
-    @Column(DataType.STRING)
-    username: string
+  @Unique
+  @AllowNull(false)
+  @Validate({ isAlphanumeric: true })
+  @Column(DataType.STRING)
+  username: string
 
-    @Column(DataType.STRING)
-    email: string
+  @Unique
+  @AllowNull
+  @Column(DataType.STRING)
+  email: string
 }

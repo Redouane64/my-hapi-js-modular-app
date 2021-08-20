@@ -3,7 +3,7 @@ import { expect } from '@hapi/code'
 import { Server } from '@hapi/hapi'
 import { Database } from '../src/database'
 
-const { describe, it, before } = exports.lab = Lab.script()
+const { describe, it, before } = (exports.lab = Lab.script())
 
 describe('database', () => {
   let server: Server

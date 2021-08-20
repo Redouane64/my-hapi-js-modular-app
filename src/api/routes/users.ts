@@ -1,4 +1,5 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi'
+import { CreateOrUpdateUser, UserDto } from '../../database/user'
 
 export const register: ServerRoute = {
   path: '/users',
@@ -8,7 +9,9 @@ export const register: ServerRoute = {
     id: 'register'
   },
   handler: async (request: Request, reply: ResponseToolkit) => {
-    return reply.response()
+    const { email, username } = request.payload as CreateOrUpdateUser
+    const user = await request.server.methods.createUser({ username, email })
+    return reply.response(user).code(200)
   }
 }
 
@@ -20,6 +23,13 @@ export const login: ServerRoute = {
     id: 'login'
   },
   handler: async (request: Request, reply: ResponseToolkit) => {
-    return reply.response()
+    const { email, username } = request.payload as Partial<Pick<UserDto, 'email' | 'username'>>
+    const user = await request.server.methods.getUser({ username, email })
+
+    if (user === null) {
+      return reply.response().code(401)
+    }
+
+    return reply.response(user).code(200)
   }
 }
